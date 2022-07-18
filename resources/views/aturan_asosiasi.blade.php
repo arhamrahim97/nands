@@ -6,7 +6,7 @@
             <div class="col">
                 <div class="card card-lightblue card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">Input Minimum Support dan Minimum Confidence</h3>
+                        <h3 class="card-title">Input Minimum Support Count dan Minimum Confidence</h3>
                     </div>
                     <form method="POST" action="{{ url('proses-aturan-asosiasi') }}" class="form-horizontal" id="formSubmit"
                         autocomplete="off">
@@ -30,12 +30,12 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    <label for="inputEmail3" class="form-label pt-0">Minimum Support :</label>
+                                    <label for="inputEmail3" class="form-label pt-0">Minimum Support Count :</label>
                                     <span class="float-right" id="info-min-support" style="cursor: pointer"><i
                                             class="fas fa-question-circle text-info"></i></span>
                                     <div class="custom-file">
                                         <input type="text" class="form-control" name="minimum_support"
-                                            placeholder="Input Nilai Minimum Support" required>
+                                            placeholder="Input Nilai Minimum Support Count" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -90,7 +90,7 @@
                                             class="fas fa-arrow-down"></i></span>
                                     <div class="info-box-content">
                                         <span class="info-box-text">
-                                            <h6 style="font-weight: bold">Minimum Support : </h6>
+                                            <h6 style="font-weight: bold">Minimum Support Count : </h6>
                                         </span>
                                         <span class="info-box-number mt-0">
                                             <h4 style="display: inline">
@@ -209,7 +209,7 @@
                                                                 Rule (Aturan)
                                                             </th>
                                                             <th>
-                                                                Support
+                                                                Support Count
                                                             </th>
                                                             <th>
                                                                 Confidence (%)
@@ -255,18 +255,20 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Apa itu nilai support ?</h4>
+                    <h4 class="modal-title">Apa itu nilai support count ?</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><b>Nilai support</b> merupakan nilai jumlah frekuensi/kemunculan dari setiap kombinasi item atau
+                    <p><b>Nilai support count</b> merupakan nilai jumlah frekuensi/kemunculan dari setiap kombinasi item
+                        atau
                         barang yang sering dibeli oleh konsumen secara bersamaan dari seluruh transaksi yang ada. Jadi dari
                         data latih yang telah di impor sebelumnya akan dilakukan proses perhitungan jumlah frekuensi untuk
-                        setiap kombinasi item dari seluruh transaksi yang ada. Dengan ditentukannya nilai minimum support,
+                        setiap kombinasi item dari seluruh transaksi yang ada. Dengan ditentukannya nilai minimum support
+                        count,
                         maka sistem hanya akan mengambil kombinasi item dengan jumlah frekuensi/kemunculan yang memenuhi
-                        nilai minimum support yang telah ditentukan. </p>
+                        nilai minimum support count yang telah ditentukan. </p>
                 </div>
                 <div class="modal-footer float-right">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
@@ -289,7 +291,8 @@
                 </div>
                 <div class="modal-body">
                     <p><b>Nilai confidence</b> merupakan nilai persentase dari kombinasi item yang memenuhi nilai minimum
-                        support. Misalnya terdapat kombinasi item yaitu item A dan item B, dari kombinasi tersebut dapat
+                        support count. Misalnya terdapat kombinasi item yaitu item A dan item B, dari kombinasi tersebut
+                        dapat
                         diketahui seberapa kuat hubungan antara item A dan dan item B, atau seberapa kuat konsumen akan
                         membeli item B apabila ia membeli item A dilihat berdasarkan hasil perhitungan nilai confidence-nya.
                     </p>
@@ -342,8 +345,8 @@
                         });
                     } else if (response.message == 'supportTinggi') {
                         Swal.fire({
-                            title: 'Nilai minimum support terlalu tinggi.',
-                            text: 'Silahkan coba dengan nilai minimum support yang lebih rendah.',
+                            title: 'Nilai minimum support count terlalu tinggi.',
+                            text: 'Silahkan coba dengan nilai minimum support count yang lebih rendah.',
                             icon: 'error',
                             confirmButtonText: 'OK'
                         });
@@ -416,7 +419,7 @@
                 labels: if_,
                 then: then_,
                 datasets: [{
-                    label: 'Support',
+                    label: 'Support Count',
                     data: support_,
                     backgroundColor: [
                         'rgba(54, 162, 235, 0.2)',

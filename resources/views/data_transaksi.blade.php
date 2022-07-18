@@ -26,7 +26,7 @@
                                 <div class="col-sm-12 mt-2">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="checkbox-import"
-                                            name="checkbox_import" value="1" checked>
+                                            name="checkbox_import" value="1">
                                         <label class="custom-control-label" for="checkbox-import">
                                             <span class="text-muted font-weight-normal" style="font-style: italic">
                                                 Bersihkan data transaksi yang sudah ada sebelumnya
@@ -212,8 +212,8 @@
                         name: 'id_transaksi'
                     },
                     {
-                        data: 'tanggal',
-                        name: 'tanggal',
+                        data: 'tanggal_',
+                        name: 'tanggal_',
                         className: 'text-center'
                     },
                     {

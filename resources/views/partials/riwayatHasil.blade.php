@@ -31,7 +31,7 @@
                                         class="fas fa-arrow-down"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">
-                                        <h6 style="font-weight: bold">Minimum Support :</h6>
+                                        <h6 style="font-weight: bold">Minimum Support Count:</h6>
                                     </span>
                                     <span class="info-box-number mt-0">
                                         <h4 style="display: inline">
@@ -150,7 +150,7 @@
                                                             Rule (Aturan)
                                                         </th>
                                                         <th>
-                                                            Support
+                                                            Support Count
                                                         </th>
                                                         <th>
                                                             Confidence (%)
@@ -237,7 +237,7 @@
                 labels: if_,
                 then: then_,
                 datasets: [{
-                    label: 'Support',
+                    label: 'Support Count',
                     data: support_,
                     backgroundColor: [
                         'rgba(54, 162, 235, 0.2)',

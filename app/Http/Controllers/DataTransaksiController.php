@@ -39,7 +39,7 @@ class DataTransaksiController extends Controller
     public function tabelDataTransaksi(Request $request)
     {
         if ($request->ajax()) {
-            $data = DataTransaksi::select('id_transaksi', DB::raw('GROUP_CONCAT(nama_barang) as nama_barang'), DB::raw("date_format(tanggal,'%d/%m/%Y') as tanggal"))->groupBy('id_transaksi')->groupBy('tanggal')->orderBy('tanggal', 'DESC');
+            $data = DataTransaksi::select('id_transaksi', DB::raw('GROUP_CONCAT(nama_barang) as nama_barang'), DB::raw("date_format(tanggal,'%d/%m/%Y') as tanggal_"))->groupBy('id_transaksi')->groupBy('tanggal')->orderBy('tanggal', 'DESC')->orderBy('id_transaksi', 'DESC');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->make(true);
