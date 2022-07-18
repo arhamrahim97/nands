@@ -21,7 +21,7 @@
                                             Dari dan Sampai Tanggal:
                                             {{ Carbon\Carbon::parse($item->dari_tanggal)->isoFormat('DD/MM/YYYY') }} -
                                             {{ Carbon\Carbon::parse($item->sampai_tanggal)->isoFormat('DD/MM/YYYY') }} |
-                                            Minimum Support: {{ $item->minimum_support }} | Minimum Confidence:
+                                            Minimum Support Count: {{ $item->minimum_support }} | Minimum Confidence:
                                             {{ $item->minimum_confidence }}% | Jumlah Data Diproses:
                                             {{ $item->jumlah_dataset }}
                                         </option>
