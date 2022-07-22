@@ -11,10 +11,9 @@ use App\Models\LiftRatio;
 use App\Models\FrequentItem;
 use Illuminate\Http\Request;
 use App\Models\DataTransaksi;
-use PhpParser\Node\Stmt\For_;
 use App\Models\AturanAsosiasi;
-use App\Models\SupportItemset;
-
+// use App\Models\SupportItemset;
+use App\Models\FrequentItemset;
 use GuzzleHttp\Promise\Create;
 use PhpParser\Node\Stmt\Break_;
 use App\Models\ConfidenceItemset;
@@ -102,9 +101,9 @@ class AturanAsosiasiController extends Controller
 
         $conditionalPatternBase = $this->conditionalPatternBase($dataSetPriority, $riwayat, $frequentItem); // Menghitung conditional pattern base
 
-        $supportItemset = $this->supportItemset($conditionalPatternBase, $riwayat, $countDataSet); // Menghitung itemset
+        $frequentItemset = $this->frequentItemset($conditionalPatternBase, $riwayat, $countDataSet); // Menghitung itemset
 
-        if ($supportItemset->get()->count() == 0) {
+        if ($frequentItemset->get()->count() == 0) {
             Riwayat::where('id', $riwayat->id)->delete();
             return Response()->json([
                 'message' => 'supportTinggi',
@@ -112,7 +111,7 @@ class AturanAsosiasiController extends Controller
             ]);
         }
 
-        $confidenceItemset = $this->confidenceItemset($supportItemset, $riwayat);
+        $confidenceItemset = $this->confidenceItemset($frequentItemset, $riwayat);
 
         if ($confidenceItemset->get()->count() == 0) {
             Riwayat::where('id', $riwayat->id)->delete();
@@ -156,10 +155,8 @@ class AturanAsosiasiController extends Controller
         $countPerItem = Dataset::select('nama_barang', DB::raw('count(nama_barang) as jumlah'))
             ->where('riwayat_id', $riwayat->id)
             ->groupBy('nama_barang')
-            ->orderBy('jumlah', 'DESC')
-            ->orderBy('nama_barang', 'ASC')
             ->get();
-
+     
         $tempFrequentItem = [];
         $i = 'A';
         foreach ($countPerItem as $row) {
@@ -179,7 +176,9 @@ class AturanAsosiasiController extends Controller
             $i++;
         }
 
-        FrequentItem::insert($tempFrequentItem);
+        $sort = collect($tempFrequentItem)->sortBy('inisialisasi')->sortByDesc('support_count')->toArray();
+
+        FrequentItem::insert($sort);
         $frequentItem = FrequentItem::where('riwayat_id', $riwayat->id);
         return $frequentItem;
     }
@@ -202,7 +201,8 @@ class AturanAsosiasiController extends Controller
         $iteration = 1;
         foreach ($dataSet as $row) {
             $namaBarangArr = explode('|', $row->nama_barang);
-            $listBarang = FrequentItem::where('riwayat_id', $riwayat->id)->whereIn('nama_barang', $namaBarangArr)->orderBy('support_count', 'DESC')->orderBy('nama_barang', 'ASC')->pluck('inisialisasi')->implode(',');
+            $listBarang = FrequentItem::where('riwayat_id', $riwayat->id)->whereIn('nama_barang', $namaBarangArr)->orderBy('support_count', 'DESC')->orderBy('inisialisasi', 'ASC')->pluck('inisialisasi')->implode(',');
+            // dd($namaBarangArr);
             $data = [
                 'riwayat_id' => $riwayat->id,
                 'tanggal' => DateTime::createFromFormat('d/m/Y', $row->tanggal)->format('Y-m-d'),
@@ -317,7 +317,7 @@ class AturanAsosiasiController extends Controller
     }
 
 
-    function supportItemset($conditionalPatternBase, $riwayat, $countDataSet)
+    function frequentItemset($conditionalPatternBase, $riwayat, $countDataSet)
     {
         $item = $conditionalPatternBase->groupBy('nama_barang')->pluck('nama_barang');
         $tempData = [];
@@ -385,16 +385,16 @@ class AturanAsosiasiController extends Controller
             }
         }
 
-        SupportItemset::insert($tempData);
+        FrequentItemset::insert($tempData);
 
-        $supportItemset = SupportItemset::where('riwayat_id', $riwayat->id);
-        return $supportItemset;
+        $frequentItemset = FrequentItemset::where('riwayat_id', $riwayat->id);
+        return $frequentItemset;
     }
 
-    function confidenceItemset($supportItemset, $riwayat)
+    function confidenceItemset($frequentItemset, $riwayat)
     {
         $tempConfidenceItemset = [];
-        foreach ($supportItemset->get() as $row) {
+        foreach ($frequentItemset->get() as $row) {
             $itemset = explode(',', $row->itemset);
             $getFrekuensiFirstItem = FrequentItem::where('riwayat_id', $riwayat->id)->where('inisialisasi', $itemset[0])->pluck('support_count')->first();
 
@@ -436,7 +436,7 @@ class AturanAsosiasiController extends Controller
             if (count($itemset) == 2) {
                 $consequent = FrequentItem::where('riwayat_id', $riwayat->id)->where('inisialisasi', end($itemset))->pluck('support')->first();
             } else {
-                $consequent = SupportItemset::where('riwayat_id', $riwayat->id)->where('itemset', implode(',', $morethanone))->pluck('support')->first();
+                $consequent = FrequentItemset::where('riwayat_id', $riwayat->id)->where('itemset', implode(',', $morethanone))->pluck('support')->first();
             }
 
             $liftRatio =  round(($row->confidence / $consequent), 2);

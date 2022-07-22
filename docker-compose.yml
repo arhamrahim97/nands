@@ -46,15 +46,15 @@ services:
             timeout: 5s
 
     phpmyadmin:
-        image: phpmyadmin:latest
-        links:
-            - mysql:mysql
+        image: 'phpmyadmin:latest'
         ports:
-            - 8080:80
+            - 8686:80
         environment:
-            MYSQL_USERNAME: "${DB_USERNAME}"
-            MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
-            PMA_HOST: mysql
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+        links:
+            - "mysql:db"
+        depends_on:
+            - mysql
         networks:
             - sail
 

@@ -56,3 +56,5 @@ $response = tap($kernel->handle(
 $kernel->terminate($request, $response);
 
 // ini_set('memory_limit', '4096M');
+
+set_time_limit(60000);
