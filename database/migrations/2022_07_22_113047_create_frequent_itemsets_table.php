@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SupportItemset extends Migration
+class CreateFrequentItemsetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class SupportItemset extends Migration
      */
     public function up()
     {
-        Schema::create('support_itemset', function (Blueprint $table) {
+        Schema::create('frequent_itemset', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('riwayat_id')->default(0);
             $table->string('itemset');
@@ -30,6 +30,6 @@ class SupportItemset extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('support_itemset');
+        Schema::dropIfExists('frequent_itemset');
     }
 }
