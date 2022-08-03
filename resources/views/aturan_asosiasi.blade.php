@@ -227,15 +227,15 @@
                                             <div class="tab-pane fade show active" id="custom-tabs-four-profile"
                                                 role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
                                                 <div class="row">
-                                                    <div class="col-md-12 col-sm-12 mb-5">
+                                                    {{-- <div class="col-md-12 col-sm-12 mb-5">
                                                         <canvas id="chartSupport" height="100px"></canvas>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="col-md-12 col-sm-12 mb-5">
                                                         <canvas id="chartConfidence" height="100px"></canvas>
                                                     </div>
-                                                    <div class="col-md-12 col-sm-12 mb-5">
+                                                    {{-- <div class="col-md-12 col-sm-12 mb-5">
                                                         <canvas id="chartLiftRatio" height="100px"></canvas>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -491,7 +491,7 @@
                 },
             }
 
-            const chartSupport = new Chart(document.getElementById('chartSupport'), configSupport);
+            // const chartSupport = new Chart(document.getElementById('chartSupport'), configSupport);
 
             // Confidence Chart
             const dataConfidence = {
@@ -649,7 +649,7 @@
                 },
             }
 
-            const chartLiftRatio = new Chart(document.getElementById('chartLiftRatio'), configLiftRatio)
+            // const chartLiftRatio = new Chart(document.getElementById('chartLiftRatio'), configLiftRatio)
 
         }
     </script>

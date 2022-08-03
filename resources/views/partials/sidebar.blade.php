@@ -33,6 +33,9 @@
                                     </p>
                                 </a>
                             </li>
+                            <li class="nav-header">
+                                <h6 class="font-weight-bold pt-2 mb-0">FP-Growth</h6>
+                            </li>
                             <li class="nav-item">
                                 <a href="/data-transaksi"
                                     class="nav-link @if ($title == 'Data Transaksi') active @endif">
@@ -56,6 +59,18 @@
                                     <i class="nav-icon fas fa-history"></i>
                                     <p>
                                         Riwayat
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-header">
+                                <h6 class="font-weight-bold pt-2 mb-0">Strategi Promosi</h6>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/promosi" class="nav-link @if ($title == 'Promosi') active @endif">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                    <p>
+                                        Promosi
                                     </p>
                                 </a>
                             </li>

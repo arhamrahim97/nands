@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataTransaksiController;
 use App\Http\Controllers\AturanAsosiasiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PromosiController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -41,5 +42,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/riwayat', RiwayatController::class);
     Route::get('/get-riwayat/{riwayat}', [RiwayatController::class, 'getRiwayat']);
 
+    Route::get('/get-riwayat-promosi/{riwayat}', [PromosiController::class, 'getRiwayatPromosi']);
+
+    Route::get('/get-barang-laris', [PromosiController::class, 'getBarangLarisPromosi']);
+
+    Route::get('/get-barang-kurang-laris', [PromosiController::class, 'getBarangKurangLarisPromosi']);
+
     Route::put('/akun/{user}', [UserController::class, 'update']);
+
+    Route::resource('/promosi', PromosiController::class);
 });

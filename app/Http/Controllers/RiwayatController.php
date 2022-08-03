@@ -17,7 +17,7 @@ class RiwayatController extends Controller
     public function index()
     {
         $riwayatInfo = Riwayat::orderBy('id', 'DESC')->first();
-        $rule = Rule::where('riwayat_id', $riwayatInfo->id ?? 0)->get();
+        $rule = Rule::where('riwayat_id', $riwayatInfo->id ?? 0)->orderBy('confidence_persen', 'DESC')->get();
         $if = Rule::where('riwayat_id', $riwayatInfo->id ?? 0)->orderBy('confidence_persen', 'desc')->pluck('if')->toArray();
         $then = Rule::where('riwayat_id', $riwayatInfo->id ?? 0)->orderBy('confidence_persen', 'desc')->pluck('then')->toArray();
         $support = Rule::where('riwayat_id', $riwayatInfo->id ?? 0)->orderBy('confidence_persen', 'desc')->pluck('support_count')->toArray();
@@ -52,7 +52,7 @@ class RiwayatController extends Controller
     public function getRiwayat(Request $request, Riwayat $riwayat)
     {
         $riwayatInfo = Riwayat::where('id', $riwayat->id)->first();
-        $rule = Rule::where('riwayat_id', $riwayat->id)->get();
+        $rule = Rule::where('riwayat_id', $riwayat->id)->orderBy('confidence_persen', 'desc')->get();
         $if = Rule::where('riwayat_id', $riwayat->id ?? 0)->orderBy('confidence_persen', 'desc')->pluck('if')->toArray();
         $then = Rule::where('riwayat_id', $riwayat->id ?? 0)->orderBy('confidence_persen', 'desc')->pluck('then')->toArray();
         $support = Rule::where('riwayat_id', $riwayat->id ?? 0)->orderBy('confidence_persen', 'desc')->pluck('support_count')->toArray();
@@ -76,7 +76,6 @@ class RiwayatController extends Controller
 
         return view("partials.riwayatHasil")->with($data)
             ->render();
-        // return $riwayat;
     }
 
     public function create()
